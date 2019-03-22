@@ -38,9 +38,15 @@ To use the Vereafy Android library just follow the steps:
 ## Initialization
 
  The Vereafy 2fa initialization can be as simple as the following lines of code:
+ android - java
 
          Vereafy vereafy = new Vereafy("your_APIKEY");
          vereafy.initialization("234802*******");
+         
+ android - kotlin
+ 
+         val vereafy = Vereafy("your_APIKEY")
+         vereafy.initialization("234802*******")
 
 The initialization method returns a response that should look like this:
 
@@ -53,8 +59,15 @@ The initialization method returns a response that should look like this:
 
  The Vereafy 2fa completion can be as simple as the following lines of code:
 
+android - java
+
          Vereafy vereafy = new Vereafy("your_APIKEY");
          vereafy.completion("pinRef","verification_code");
+         
+android  - kotlin
+ 
+         val vereafy = Vereafy("your_APIKEY")
+         vereafy.completion("pinRef","verification_code")
 
 The completion method returns a response that should look like this if the parameters are correct:
 
@@ -66,9 +79,16 @@ The completion method returns a response that should look like this if the param
 
 In a case where your app users get impatient and hits the retry link on your app form, just call the resend method this way:
  
+ android - java
+ 
          Vereafy vereafy = new Vereafy("your_APIKEY");
          vereafy.resend("234802*******","pinRef");
 
+android - kotlin
+
+          val vereafy = Vereafy("your_APIKEY")
+          vereafy.resend("234802*******","pinRef")
+          
 The resend method returns a response that should look like this:
 
              {
@@ -79,9 +99,17 @@ The resend method returns a response that should look like this:
 ## Get Balance
 
 To get your balance on Vereafy, the getbalance method is used this way:
+
+android - java
             
             Vereafy vereafy = new Vereafy("your_APIKEY");
             vereafy.getBalance();
+            
+android - kotlin
+
+            val vereafy = Vereafy("your_APIKEY")
+            vereafy.balance
+          
 The method requires no parameter, and the returned response should look like this:
 
             {
