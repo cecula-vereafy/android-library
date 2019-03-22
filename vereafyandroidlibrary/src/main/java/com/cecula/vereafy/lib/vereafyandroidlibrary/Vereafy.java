@@ -5,16 +5,25 @@
 
 package com.cecula.vereafy.lib.vereafyandroidlibrary;
 
+import android.util.Log;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.net.ssl.SSLHandshakeException;
 
 public class Vereafy {
     Logger logger = Logger.getAnonymousLogger();
@@ -118,57 +127,75 @@ public class Vereafy {
     }
 
     /*Here the request to server is made, parameters needed are the url, the parameters to be sent and the request method type*/
-    private String makeRequestToServer(String url, String jsonParameters, String requestMethod) {
+    private String makeRequestToServer(String _url, String jsonParameters, String requestMethod) {
 
+        String result="";
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
         try {
-            URL requestUrl = new URL(url);
 
-            conn = (HttpURLConnection) requestUrl.openConnection();
-            conn.setRequestMethod(requestMethod);
-            conn.setRequestProperty("Content-Type", "application/json");
-            conn.setRequestProperty("Authorization", "Bearer " + apiKey);
+            URL url = new URL(_url);
 
-            conn.setDoOutput(true);
+
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod(requestMethod);
+            urlConnection.setRequestProperty("Content-Type", "application/json");
+            urlConnection.setRequestProperty("Authorization", "Bearer "+apiKey );
+            /* urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");*/
+            //try {
+            urlConnection.connect();
+
 
             if(requestMethod == "POST") {
-                writer = new OutputStreamWriter(conn.getOutputStream());
-                writer.write(jsonParameters);
-                writer.flush();
+
+
+
+                DataOutputStream dataout = new DataOutputStream(urlConnection.getOutputStream());
+                // perform POST operation
+                dataout.writeBytes(jsonParameters);
             }
+
+            // Read the input stream into a String
+            InputStream inputStream = urlConnection.getInputStream();
+            StringBuffer buffer = new StringBuffer();
+            if (inputStream == null) {
+                // Nothing to do.
+            }
+            reader = new BufferedReader(new InputStreamReader(inputStream));
 
             String line;
-            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            resultStringBuilder = new StringBuilder();
-
             while ((line = reader.readLine()) != null) {
-                resultStringBuilder.append(line);
+
+                buffer.append(line + "\n");
             }
 
-            result = resultStringBuilder.toString();
-
+            if (buffer.length() == 0) {
+                // Stream was empty.  No point in parsing.
+                //Log.i("SyncApp", "Buffer Empty");
+            }
+            result = buffer.toString();
 
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Something went wrong while making request", e);
-        }finally {
-            if(writer != null) {
-                try {
-                    writer.close();
-                } catch (IOException e) {
+            Log.e("vereafy_lib", "Error ", e);
 
-                    logger.log(Level.SEVERE, "Something went wrong while closing output stream writer", e);
-                }
+
+        } finally {
+            if (urlConnection != null) {
+                urlConnection.disconnect();
             }
-            if(reader != null) {
+            if (reader != null) {
                 try {
                     reader.close();
-                } catch (IOException e) {
-
-                    logger.log(Level.SEVERE, "Something went wrong while closing input stream reader", e);
+                } catch (final IOException e) {
+                    Log.e("vereafy_lib", "Error closing stream", e);
                 }
             }
         }
 
+        //Log.i("SyncApp", result);
+
         return result;
     }
+
+
 }
