@@ -19,7 +19,7 @@ The Vereafy Android Library Project was created to enable android developers int
 
 To use the Vereafy Android library just follow the steps:
 1. Download the Vereafy android .aar file.
-2. Add the compiled AAR (or JAR) file (the library must be already built):
+2. Add the Vereafy android library to your project as follows:
    - Click File > New > New Module.
    - Click Import .JAR/.AAR Package then click Next.
    - Enter the location of the Vereafy android .aar file you downloaded then click Finish.
