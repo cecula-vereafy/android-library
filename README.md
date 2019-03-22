@@ -23,7 +23,7 @@ To use the Vereafy Android library just follow the steps:
    - Click File > New > New Module.
    - Click Import .JAR/.AAR Package then click Next.
    - Enter the location of the Vereafy android .aar file you downloaded then click Finish.
-3. Make sure the library is listed at the top of your settings.gradle file, as shown here for a library named "vereafyandroidlibrary-release":
+3. Make sure the library is listed at the top of your settings.gradle file, as shown here for "vereafyandroidlibrary-release":
 
           include ':app', ':vereafyandroidlibrary-release'
           
