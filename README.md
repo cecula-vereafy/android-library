@@ -38,6 +38,7 @@ To use the Vereafy Android library just follow the steps:
 ## Initialization
 
  The Vereafy 2fa initialization can be as simple as the following lines of code:
+ 
  android - java
 
          Vereafy vereafy = new Vereafy("your_APIKEY");
