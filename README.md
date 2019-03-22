@@ -40,7 +40,7 @@ To use the Vereafy Android library just follow the steps:
  The Vereafy 2fa initialization can be as simple as the following lines of code:
 
          Vereafy vereafy = new Vereafy("your_APIKEY");
-         vereafy.initialization("mobile_number_to_be_verified");
+         vereafy.initialization("234802*******");
 
 The initialization method returns a response that should look like this:
 
@@ -67,7 +67,7 @@ The completion method returns a response that should look like this if the param
 In a case where your app users get impatient and hits the retry link on your app form, just call the resend method this way:
  
          Vereafy vereafy = new Vereafy("your_APIKEY");
-         vereafy.resend("mobile_number_to_be_verified","pinRef");
+         vereafy.resend("234802*******","pinRef");
 
 The resend method returns a response that should look like this:
 
