@@ -11,7 +11,7 @@
 
 ## Introduction:
 
-Vereafy is an SMS based 2-factor authentication services that uses machine learning to understand the causes of OTP delivery failures and resolves them instantly to ensure your login and sign up OTPs deliver.
+Vereafy is an SMS based 2-factor authentication service that uses machine learning to understand the causes of OTP delivery failures and resolves them instantly to ensure your login and sign up OTPs deliver.
 
 The Vereafy Android Library Project was created to enable android developers integrate seamlessly with the Vereafy API.
 
@@ -99,7 +99,7 @@ The resend method returns a response that should look like this:
 
 ## Get Balance
 
-To get your balance on Vereafy, the getbalance method is used this way:
+To get your balance on Vereafy, the getBalance method is used this way:
 
 android - java
             
